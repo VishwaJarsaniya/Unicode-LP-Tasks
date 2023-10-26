@@ -27,6 +27,7 @@ function SignUp() {
     const [formData, setFormData] = useState(initialData);
     const [errors, setErrors] = useState({});
     const [confirmPassword, setConfirmPassword] = useState('');
+    const isLargeScreen = useMediaQuery('(min-width:600px)'); 
   
     const fillData = (e) => {
       const {name, value} = e.target;
@@ -102,7 +103,7 @@ function SignUp() {
     <Box
     sx={{
       border:2,
-      pl:10,
+      pl: isLargeScreen ? 10 : 2,
       ml:'8%',
       mr:'8%',
       mt:'2%',
@@ -232,6 +233,7 @@ function SignUp() {
     
     autoComplete="off"
   >
+    {isLargeScreen && (
     <div style={{ width: '50%', height: '90%', position: 'fixed', top:20, right: 60,  margin: 'auto'}}>
     <img
             src={signupImage}
@@ -240,6 +242,7 @@ function SignUp() {
             
           />
           </div>
+    )}
   </Grid>
   </Grid>
   </Box>

@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Grid } from '@mui/material';
 import loginImage from './Login-amico.png';
 import Swal from 'sweetalert2';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 function Login() {
@@ -18,6 +19,7 @@ function Login() {
     const initialData = {email: "", password: ""};
     const [formData, setFormData] = useState(initialData);
     const [errors, setErrors] = useState({});
+    const isLargeScreen = useMediaQuery('(min-width:600px)'); 
   
     const fillData = (e) => {
       const {name, value} = e.target;
@@ -81,7 +83,7 @@ function Login() {
       <Box
       sx={{
         border:2,
-        pl:10,
+        pl: isLargeScreen ? 10 : 2,
         ml:'7%',
         mr:'7%',
         mt:'7%',
@@ -106,14 +108,17 @@ function Login() {
       
       autoComplete="off"
     >
+      {isLargeScreen && (
       <div style={{ width: '40%', height: '80%', position: 'fixed', top:40 }}>
       <img
               src={loginImage}
               alt="Login Image"
               style={{ width: '100%', height: '100%'}}
               
-            />
-            </div>
+      />
+      </div>
+            )}
+      
     </Grid>
   <Grid                                                        //form rhs
         component="div"
