@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TO-DO</title>
+  <link href="/dist/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="output.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.2/lottie.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body{
+      position: relative;
+      min-height: 100vh;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .back {
+      background-size: cover;
+      padding: 100px 250px;
+    }
+    /* .action-button1 {
+      border-color: black;
+      border-radius: 12px;
+      width: 60px;
+      border-width: 2px;
+      background-color: #3BB143;
+    }
+    .action-button2 {
+      border-color: black;
+      border-radius: 12px;
+      width: 60px;
+      border-width: 2px;
+      background-color: #B22222;
+    } */
+    .checked {
+      text-decoration: line-through;
+      color: #888;
+    }
+    .saveButton{
+      background-color: #24ad2d;
+      color: black;
+      border: 1px solid black;
+      border-radius: 25px;
+      height: 40px;
+      width: 90px;
+      margin-left: 3px;;
+      padding: 5px;
+    }
+    .editing {
+      color: black;
+      background-color: #FFC59F;
+      border-radius: 25px;
+      padding: 1px;
+  }
+    .editBox {
+      color: black;
+      font-size: 19px; 
+      background: transparent;
+      /* border: 1px solid black; 
+      border-radius: 30px; */
+      text-decoration: underline;
+      padding: 5px; 
+      width: 80%;
+  }
+  #lottie-animation1 {
+      position: absolute; 
+      top: 0;
+      left: 0px; 
+      width: 700px;
+      height: 600px;
+      z-index: -99;
+      transform: rotate(180deg);
+    }
+    #lottie-animation2 {
+      position: absolute; 
+      bottom: 0;
+      right: 0;
+      width: 700px;
+      height: 600px;
+      z-index: -99;
+    }
+   </style>
+</head>
+<body>
+  <div id="lottie-animation1"></div>
+  <div class="back">
+    <div class="border-black shadow-2xl shadow-black border-2 p-8 rounded-3xl">
+    <img src="images/check.png" class="w-44 h-44 items-center m-auto">
+    <h1 class="text-black text-4xl flex place-content-center py-5">TO-DO LIST</h1>
+    <div class="flex py-6">
+      <input type="text" placeholder="Add new task" id="inputBox" class=" border-2 rounded-3xl border-black px-5 py-2 ml-4 w-4/5">
+      <button onclick="addTask()" class="AddBtn border-black border-2 w-36 ml-8 mr-0 px-5 rounded-3xl bg-lime-500
+      hover:bg-orange-500 text-black font-medium">ADD</button>
+    </div>
+    <table class="table-auto text-black px-5 py-8 text-lg">
+      <thead>
+      <tr>
+        <th class="px-8 py-5 w-300">TASK TITLE</th>
+        <th class="px-12 py-5 w-40">EDIT</th>
+        <th class="px-12 py-5 w-44">DELETE</th>
+      </tr>
+    </thead>
+    <tbody id="todoTableBody">
+
+    </tbody>
+    </table>
+  </div>
+  </div>
+  <div id="lottie-animation2"></div>
+  <script src="todoscript.js"></script>
+</body>
+</html>

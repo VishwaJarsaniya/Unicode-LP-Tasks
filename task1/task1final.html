@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TASK 1</title>
+  <link href="/dist/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="output.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.2/lottie.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body{
+      position: relative;
+      min-height: 100vh;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .back {
+      background-size: cover;
+      padding: 100px 250px;
+    }
+    .todoBtn {
+      border-color: black;
+      border-radius: 12px;
+      font-weight: 400;
+      width: 90px;
+      height: 42px;
+      border-width: 2px;
+      background-color: #FA7E68;
+    }
+    .albumBtn {
+      border-color: black;
+      border-radius: 12px;
+      font-weight: 400;
+      width: 90px;
+      height: 42px;
+      border-width: 2px;
+      background-color: #3968DD;
+    }
+    #lottie-animation1 {
+      position: absolute; 
+      top: 0;
+      left: 0px; 
+      width: 700px;
+      height: 600px;
+      z-index: -99;
+      transform: rotate(180deg);
+    }
+    #lottie-animation2 {
+      position: absolute; 
+      bottom: 0;
+      right: 0;
+      width: 700px;
+      height: 600px;
+      z-index: -99;
+    }
+   </style>
+  </head>
+<body>
+  <div id="lottie-animation1"></div>
+    <div class="back">
+        <div class="border-black shadow-2xl shadow-black border-2 p-4 rounded-3xl">
+        <img src="images/man.png" class="w-44 h-44 items-center m-auto">
+        <h1 class="text-black text-4xl flex place-content-center py-5">USERS</h1>
+        <table class="table-auto text-black px-8 py-8 text-lg">
+          <thead>
+          <tr>
+            <th class="md:px-12 md:py-5 md:w-28">ID</th>
+            <th class="md:px-8 md:py-5 md:w-150">NAME</th>
+            <th class="md:pr-8 md:py-5 md:w-80">EMAIL</th>
+            <th class="md:pr-16 md:py-5 md:w-44">TO-DO</th>
+            <th class="md:pr-16 md:py-5 md:w-44">ALBUMS</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+        
+        </tbody>
+        </table>
+
+    </div>
+  </div>
+  <div id="lottie-animation2"></div>
+  <script src="scriptfinal.js"></script>
+</body>
+</html>
