@@ -1,4 +1,4 @@
-import React , {useState , useEffect , useRef} from 'react';
+import React , {useState, useContext} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -6,7 +6,6 @@ import Stack from '@mui/material/Stack';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Typography from '@mui/material/Typography';
-// import lottie from 'lottie-web';
 import { Link } from 'react-router-dom';
 import signupImage from './signup.png';
 import { Grid } from '@mui/material';
@@ -20,6 +19,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Swal from 'sweetalert2';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { AuthContext } from './AuthProvider';
+import axios from './api/axios';
+
 
 function SignUp() {
   
@@ -27,24 +29,48 @@ function SignUp() {
     const [formData, setFormData] = useState(initialData);
     const [errors, setErrors] = useState({});
     const [confirmPassword, setConfirmPassword] = useState('');
-    const isLargeScreen = useMediaQuery('(min-width:600px)'); 
-  
+    const isLargeScreen = useMediaQuery('(min-width:900px)'); 
+
     const fillData = (e) => {
       const {name, value} = e.target;
       setFormData({...formData, [name]: value});
     }
   
-    const submitForm = () => {
+    const authContext = useContext(AuthContext);
+    const {token} = authContext;
+
+    const submitForm = async () => {
       const validationErrors = validate(formData);
       if(Object.keys(validationErrors).length === 0){
-        localStorage.setItem('email', formData.email);
-        localStorage.setItem('password', formData.password);
+        // localStorage.setItem('email', formData.email);
+        // localStorage.setItem('password', formData.password);
+        try {
+          const response = await axios.post('/user/newUser', formData, {
+            headers: {
+              Authorization: `Bearer ${token}`, 
+            },
+          });
+
+          const userData = response.data;
+
+          console.log('Token:', userData.token);
+
         Swal.fire({
           icon: 'success',
           title: 'Registered successfully!',
         });
+
       }
-      else {
+      catch(error){
+      console.error('Error registering user:', error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Registration Error',
+          text: 'Please try again',
+        });
+      }}
+
+      else{
         Swal.fire({
           icon: 'error',
           title: 'Validation Error',
@@ -60,7 +86,7 @@ function SignUp() {
       
       const nameRegex = /^[A-Za-z\s'-]+$/;
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      const passwordRegex = /^.{8,}$/;
       const phoneRegex = /^[0-9]{10}$/;
   
       if(!data.name){
@@ -113,13 +139,17 @@ function SignUp() {
       border: `1.5px solid #624391`,
       boxShadow: '0 15px 20px rgba(98, 67, 145, 0.2)',
       zIndex:999,
+      flexDirection:'column',
+      alignItems: 'center',
+      justifyContent: 'center',
     }}>
      <Grid container>
+     
 <Grid                                                        //form lhs
       component="div"
       item
       xs={12}
-      sm={6}
+      sm={isLargeScreen ? 6 : 12}
       sx={{
         '& > :not(style)': { m: 1, width: '100%' },
         padding: 5,
@@ -190,7 +220,7 @@ function SignUp() {
         borderBottom: '2px solid #624391', 
       },}}}
      />
-      <FormControl>
+      {/* <FormControl>
       <FormLabel id="demo-radio-buttons-group-label" required>Gender</FormLabel>
       <RadioGroup
         sx={{colour:'#624391',width:'100%'}}
@@ -202,12 +232,12 @@ function SignUp() {
         <FormControlLabel value="male" control={<Radio />} label="Male" />
         <FormControlLabel value="other" control={<Radio />} label="Other" />
       </RadioGroup>
-    </FormControl>
-    <LocalizationProvider required dateAdapter={AdapterDayjs} sx={{ mb: 2, width:'100%' }}>
+    </FormControl> */}
+    {/* <LocalizationProvider required dateAdapter={AdapterDayjs} sx={{ mb: 2, width:'100%' }}>
     <DemoContainer components={['DatePicker']}>
       <DatePicker label="Date of Birth" />
     </DemoContainer>
-    </LocalizationProvider>
+    </LocalizationProvider> */}
     <Stack spacing={2} direction="row" sx={{ mt: 3 }}>
     <Button sx={{backgroundColor:'#624391'}} variant="contained" onClick={submitForm} style={{width:'100%'}}>SIGN UP</Button>
     </Stack>
@@ -220,6 +250,7 @@ function SignUp() {
     </Box>
   </div>
   </Grid>
+     {isLargeScreen && (
   <Grid                                              //rhs
     component="div"                                            
     item
@@ -233,7 +264,7 @@ function SignUp() {
     
     autoComplete="off"
   >
-    {isLargeScreen && (
+  
     <div style={{ width: '50%', height: '90%', position: 'fixed', top:20, right: 60,  margin: 'auto'}}>
     <img
             src={signupImage}
@@ -242,11 +273,11 @@ function SignUp() {
             
           />
           </div>
-    )}
+  
   </Grid>
+   )}
   </Grid>
   </Box>
-  
   );
   }
 

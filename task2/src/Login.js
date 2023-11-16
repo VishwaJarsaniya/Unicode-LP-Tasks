@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React , {useContext, useState} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -12,37 +12,47 @@ import { Grid } from '@mui/material';
 import loginImage from './Login-amico.png';
 import Swal from 'sweetalert2';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import axios from './api/axios';
+import { AuthContext } from './AuthProvider';
 
 function Login() {
 
     const initialData = {email: "", password: ""};
     const [formData, setFormData] = useState(initialData);
     const [errors, setErrors] = useState({});
-    const isLargeScreen = useMediaQuery('(min-width:600px)'); 
+    const isLargeScreen = useMediaQuery('(min-width:900px)'); 
   
     const fillData = (e) => {
       const {name, value} = e.target;
+      setErrors({ ...errors, [name]: '' });
       setFormData({...formData, [name]: value});
     }
   
-    const submitForm = () => {
+    const authContext = useContext(AuthContext);
+    const {login} = authContext;
+
+    const submitForm = async () => {
       const validationErrors = validate(formData);
       if(Object.keys(validationErrors).length === 0){
-        const storedEmail = localStorage.getItem('email');
-        const storedPassword = localStorage.getItem('password');
-        if (formData.email === storedEmail && formData.password === storedPassword) {
+        // const storedEmail = localStorage.getItem('email');
+        // const storedPassword = localStorage.getItem('password');
+        try{
+          // console.log('Login Request Payload:', formData);
+          const response = await axios.post('/user/userLogin', formData);
+          console.log(response);
+          const userData = response.data;
+          login(userData.token);
           Swal.fire({
             icon: 'success',
             title: 'Login successful!',
           });
         }
-        else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Invalid email or password',
-          });
-        }
+       catch (error){
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid email or password',
+        });
+       }
       }
       else {
         Swal.fire({
@@ -59,7 +69,7 @@ function Login() {
       const errors = {};
   
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      const passwordRegex = /^.{8,}$/;
   
       if(!data.email){
         errors.email = "Email is required";
@@ -93,8 +103,13 @@ function Login() {
         border: `1.5px solid #624391`,
         boxShadow: '0 15px 20px rgba(98, 67, 145, 0.2)',
         zIndex:999,
+        flexDirection:'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}>
+
        <Grid container>
+       {isLargeScreen && (
     <Grid                                              //lhs
       component="div"                                            
       item
@@ -102,13 +117,11 @@ function Login() {
       sm={7}
       sx={{
         width:'100%',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
+        // justifyContent: 'flex-start',
       }}
       
       autoComplete="off"
     >
-      {isLargeScreen && (
       <div style={{ width: '40%', height: '80%', position: 'fixed', top:40 }}>
       <img
               src={loginImage}
@@ -117,14 +130,13 @@ function Login() {
               
       />
       </div>
-            )}
-      
     </Grid>
+       )}
   <Grid                                                        //form rhs
         component="div"
         item
         xs={12}
-        sm={5}
+        sm={isLargeScreen ? 5 : 12}
         sx={{
           '& > :not(style)': { m: 1, width: '100%' },
           padding: 5,
@@ -178,9 +190,13 @@ function Login() {
         <Link to="/signup" style={{ textDecoration: 'none' }}>
           Sign Up
         </Link>
+        {/* <Link to="/htmlpage" style={{ textDecoration: 'none' }}>
+          TASK 1 !!!
+        </Link> */}
         </Typography>
       </Box>
     </div>
+      
     </Grid>
     </Grid>
     </Box>
