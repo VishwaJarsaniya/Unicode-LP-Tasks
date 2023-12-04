@@ -1,4 +1,4 @@
-import React , {useContext, useState} from 'react';
+import React , {useContext, useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from './api/axios';
 import { AuthContext } from './AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
 
@@ -22,30 +23,43 @@ function Login() {
     const [errors, setErrors] = useState({});
     const isLargeScreen = useMediaQuery('(min-width:900px)'); 
   
+    const navigate = useNavigate();
+
     const fillData = (e) => {
       const {name, value} = e.target;
       setErrors({ ...errors, [name]: '' });
       setFormData({...formData, [name]: value});
     }
-  
+
     const authContext = useContext(AuthContext);
     const {login} = authContext;
+    const {loginSuccess} = authContext;
 
+    useEffect(() => {
+      if (loginSuccess) {
+        navigate('/');
+      }
+    }, [loginSuccess]);
+    
     const submitForm = async () => {
       const validationErrors = validate(formData);
       if(Object.keys(validationErrors).length === 0){
+
         // const storedEmail = localStorage.getItem('email');
         // const storedPassword = localStorage.getItem('password');
+
         try{
-          // console.log('Login Request Payload:', formData);
           const response = await axios.post('/user/userLogin', formData);
-          console.log(response);
-          const userData = response.data;
-          login(userData.token);
+          // console.log(response);
+          const userData = response.data.userData;
+          console.log('userData:', response.data);
+          login(userData.token, userData.username);
+    
           Swal.fire({
             icon: 'success',
             title: 'Login successful!',
           });
+
         }
        catch (error){
         Swal.fire({
@@ -54,6 +68,7 @@ function Login() {
         });
        }
       }
+
       else {
         Swal.fire({
           icon: 'error',
@@ -82,8 +97,6 @@ function Login() {
       }    else if(!passwordRegex.test(data.password)){
         errors.password = "Invalid password format"
       }
-      
-      console.log('error');
       return errors;
       
     }
@@ -93,7 +106,7 @@ function Login() {
       <Box
       sx={{
         border:2,
-        pl: isLargeScreen ? 10 : 2,
+        pl: isLargeScreen ? 10 : 0,
         ml:'7%',
         mr:'7%',
         mt:'7%',
@@ -138,11 +151,11 @@ function Login() {
         xs={12}
         sm={isLargeScreen ? 5 : 12}
         sx={{
-          '& > :not(style)': { m: 1, width: '100%' },
+          '& > :not(style)': { m: 0, width: '100%' },
           padding: 5,
           m:0,
           width:'50%',
-          backgroundColor: '#FFFFFF', // Left half color
+          backgroundColor: 'transparent', 
           flexDirection:'column',
           alignItems: 'center',
           justifyContent: 'center',
@@ -183,16 +196,13 @@ function Login() {
         Forgot Password?
       </Typography>
       <Stack spacing={2} direction="row" sx={{ mt: 3 , justifyContent: 'center', alignItems: 'center'}}>
-      <Button sx={{backgroundColor:'#624391'}} variant="contained" onClick={submitForm} style={{width:'100%', height:40 }}>LOGIN</Button>
+      <Button sx={{backgroundColor:'#624391'}} variant="contained" onClick={submitForm} style={{width:'100%', height:40 }}><Link to={"/"} style={{textDecoration:'none', color:'white'}}>LOGIN</Link></Button>
       </Stack>
       <Box sx={{ mt: 3}}>
         <Typography variant="body2" color="textSecondary">Don't have an account?    
         <Link to="/signup" style={{ textDecoration: 'none' }}>
           Sign Up
         </Link>
-        {/* <Link to="/htmlpage" style={{ textDecoration: 'none' }}>
-          TASK 1 !!!
-        </Link> */}
         </Typography>
       </Box>
     </div>
@@ -200,6 +210,7 @@ function Login() {
     </Grid>
     </Grid>
     </Box>
+  
     </form>
   );
   }

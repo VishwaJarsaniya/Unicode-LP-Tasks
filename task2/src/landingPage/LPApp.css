@@ -1,0 +1,263 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
+  }
+  
+  body {
+    background-color: #f6f6f6;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /*Home*/
+  
+  .home{
+    display: flex;
+    position: relative;
+    padding-top: 50px;
+  }
+  
+  .home-img1{
+    position: absolute;
+    float:right;
+    top: -100px;
+    right: -100px;
+    z-index: -5;
+    max-width: 700px;
+  }
+  
+  .home-img2 {
+    max-width: 100%;
+    flex: 1;
+    z-index: 1;
+  }
+  
+  .home-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .button2 {
+    padding: 15px 40px;
+    background-color: #fe9e0d;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+  
+  .text {
+    font-size: 20px;
+    max-width: 500px;
+    color: #6a6a6a;
+    font-weight: 600;
+    margin: 20px 0;
+    background: transparent;
+  }
+  
+  
+  .LPApp {
+    min-height: 100vh;
+    width: 85vw;
+    max-width: 1900px;
+    margin: 0rem auto;
+  }
+  
+  /*Nav*/
+  
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100px;
+  }
+
+  .wel-text {
+    position: relative;
+    width: 220px;
+    padding: 15px;
+    background-color: white; 
+    text-align: center;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5rem;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .links a {
+    margin-right: 3rem;
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .button1 {
+    width: 100px;
+    padding: 15px 15px 15px 25px;
+    background-color: white; 
+    text-align: center;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .navbar-cart {
+    font-size: 22px;
+  }
+
+  .drop {
+    width: 15px;
+    height: 15px;
+  }
+
+  .dropdown-links {
+    top: 80px;
+    position: absolute;
+    right: 120px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    padding: 8px;
+    z-index: 999;
+    display: block;
+  }
+  
+  .dropdown-links button {
+    display: flex;
+    flex-direction: column; 
+    position: relative;
+    width: 170px;
+    padding: 10px 15px;
+    background-color: white; 
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 5rem;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  /*About*/
+  
+  .about-section {
+    margin-top: 280px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .about-section .img1 {
+    position: absolute;
+    left: -100px;
+    z-index: -5;
+  }
+  
+  .about-section .img2 {
+    flex: 0.9;
+  }
+  
+  .about-section .content {
+    flex: 1;
+    justify-content: center;
+    display: flex;
+    margin-left: 15px;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  
+  .smallheading {
+    font-weight: 700;
+    color: #fe9e0d;
+    font-size: 22px;
+  }
+  
+  .heading {
+    font-size: 50px;
+    color: #4c4c4c;
+    max-width: 560px;
+  } 
+  
+  .button2 {
+    padding: 15px 40px;
+    background-color: #fe9e0d;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    margin-right: 40px;
+    max-width: 200px;
+  }
+
+  .nav-links {
+    top: 93px;
+    position: absolute;
+    right: 50px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    padding: 8px;
+    z-index: 999;
+    display: block;
+  }
+  
+  .nav-links button {
+    display: flex;
+    flex-direction: column; 
+    position: relative;
+    width: 90px;
+    padding: 10px 15px;
+    background-color: white; 
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 5rem;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .navicon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .wel-text2 {
+    position: relative;
+    width: 140px;
+    padding: 15px;
+    background-color: white; 
+    text-align: center;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5rem;
+    font-size: 16px;
+    font-weight: 600;
+  }

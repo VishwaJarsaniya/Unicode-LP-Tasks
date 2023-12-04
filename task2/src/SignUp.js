@@ -25,7 +25,7 @@ import axios from './api/axios';
 
 function SignUp() {
   
-    const initialData = {email: "", password: ""};
+    const initialData = {email: "", password: "" , username: "" , mobile: 0};
     const [formData, setFormData] = useState(initialData);
     const [errors, setErrors] = useState({});
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -33,7 +33,7 @@ function SignUp() {
 
     const fillData = (e) => {
       const {name, value} = e.target;
-      setFormData({...formData, [name]: value});
+      setFormData({ ...formData, [name]: name === 'mobile' ? parseInt(value, 10) : value });
     }
   
     const authContext = useContext(AuthContext);
@@ -45,6 +45,9 @@ function SignUp() {
         // localStorage.setItem('email', formData.email);
         // localStorage.setItem('password', formData.password);
         try {
+
+          console.log('Data : ' , formData);
+
           const response = await axios.post('/user/newUser', formData, {
             headers: {
               Authorization: `Bearer ${token}`, 
@@ -89,10 +92,10 @@ function SignUp() {
       const passwordRegex = /^.{8,}$/;
       const phoneRegex = /^[0-9]{10}$/;
   
-      if(!data.name){
-        errors.name = "Name is required";
-      }   else if(!nameRegex.test(data.name)){
-        errors.name = "Invalid format"
+      if(!data.username){
+        errors.username = "Name is required";
+      }   else if(!nameRegex.test(data.username)){
+        errors.username = "Invalid format"
       }
      
       if(!data.email){
@@ -113,13 +116,11 @@ function SignUp() {
         errors.confirmPassword = "Passwords do not match";
       }
       
-      if(!data.phone){
-        errors.phone = "Mobile number is required";
-      }   else if(!phoneRegex.test(data.phone)){
-        errors.phone = "Invalid format"
+      if(!data.mobile){
+        errors.mobile = "Mobile number is required";
+      }   else if(!phoneRegex.test(data.mobile)){
+        errors.mobile = "Invalid format"
       }
-
-      console.log('error');
       return errors;
       
     }
@@ -129,7 +130,7 @@ function SignUp() {
     <Box
     sx={{
       border:2,
-      pl: isLargeScreen ? 10 : 2,
+      pl: isLargeScreen ? 10 : 0,
       ml:'8%',
       mr:'8%',
       mt:'2%',
@@ -151,11 +152,11 @@ function SignUp() {
       xs={12}
       sm={isLargeScreen ? 6 : 12}
       sx={{
-        '& > :not(style)': { m: 1, width: '100%' },
+        '& > :not(style)': { m: 0, width: '100%' },
         padding: 5,
         m:0,
         width:'100%',
-        backgroundColor: '#FFFFFF', 
+        backgroundColor: 'transparent', 
         flexDirection:'column',
         alignItems: 'center',
         justifyContent: 'center',
@@ -167,7 +168,7 @@ function SignUp() {
     <Typography variant="h4" gutterBottom sx={{ mb: 2}}>
       Glad to have you on board!
     </Typography>
-    <TextField id="filled-basic-name" label="Name" name='name' autoFocus variant="filled" value={formData.name} 
+    <TextField id="filled-basic-name" label="Name" name='username' autoFocus variant="filled" value={formData.name} 
       onChange={fillData} error={errors.name} helperText={errors.name} sx={{ mb: 3 , width:'100%'}}
      InputProps={{ sx: {
       '&:before': {
@@ -209,7 +210,7 @@ function SignUp() {
       }, '&:hover:not(.Mui-disabled):before': {
         borderBottom: '2px solid #624391', 
       },}}}/>
-    <TextField id="filled-basic-phone" label="Mobile Number" name='phone' variant="filled" value={formData.phone} 
+    <TextField id="filled-basic-phone" label="Mobile Number" name='mobile' variant="filled" value={formData.phone} 
       onChange={fillData} error={errors.phone} helperText={errors.phone} sx={{ mb: 3 , width:'100%'}}
      InputProps={{ sx: {
       '&:before': {
@@ -243,7 +244,7 @@ function SignUp() {
     </Stack>
     <Box sx={{ mt: 3 }}>
       <Typography variant="body2" color="textSecondary">Already have an account?{' '}
-      <Link to="/" style={{ textDecoration: 'none' }}>
+      <Link to="/login" style={{ textDecoration: 'none' }}>
       Login
       </Link>
       </Typography>
@@ -260,6 +261,7 @@ function SignUp() {
       width:'100%',
       flexDirection: 'column',
       justifyContent: 'flex-start',
+      backgroundColor: 'transparent',
     }}
     
     autoComplete="off"
