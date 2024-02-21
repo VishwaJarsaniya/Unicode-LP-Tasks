@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALBUMS</title>
+  <link href="/dist/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="output.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.2/lottie.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <style>  
+   body{
+      position: relative;
+      min-height: 100vh;
+      font-family: 'Open Sans', sans-serif;
+    }
+  .back {
+    background-size: cover;
+    padding: 100px 250px;
+  }
+  /* .action-button {
+      border-color: white;
+      border-radius: 12px;
+      width: 80px;
+      border-width: 2px;
+      background-color: #3BB143;
+    } */
+    #lottie-animation1 {
+      position: absolute; 
+      top: 0;
+      left: 0px; 
+      width: 700px;
+      height: 600px;
+      z-index: -99;
+      transform: rotate(180deg);
+    }
+    #lottie-animation2 {
+      position: absolute; 
+      bottom: 0;
+      right: 0;
+      width: 700px;
+      height: 600px;
+      z-index: -99;
+    }
+   </style>
+  </head>
+<body>
+  <div id="lottie-animation1"></div>
+    <div class="back">
+        <div class="border-black shadow-2xl shadow-black border-2 p-8 rounded-3xl">
+        <img src="images/gallery.png" class="w-44 h-40 items-center m-auto ">
+        <h1 class="text-black text-4xl flex place-content-center py-5">ALBUMS OF USER</h1>
+        
+        <div class="px-8 py-8">
+          <div class="grid grid-cols-3 gap-2" id="albumGrid">
+
+          </div>
+        </div>
+      </div>
+      </div>
+  <script src="albumscript.js"></script>
+  <div id="lottie-animation2"></div>
+</body>
+</html>
